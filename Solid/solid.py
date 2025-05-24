@@ -1,18 +1,29 @@
 from abc import ABC, abstractmethod
+import logging
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+
 
 class Book:
-    def __init__(self,title, author, year):
+    def __init__(self, title, author, year):
         self.title = title
         self.author = author
         self.year = year
 
     def __str__(self):
-        return f'Title: {self.title}, Author: {self.author}, Year: {self.year}'
+        return f"Title: {self.title}, Author: {self.author}, Year: {self.year}"
+
 
 class LibraryInterface(ABC):
     @abstractmethod
-    def add_book(self,book:Book):
+    def add_book(self, book: Book):
         pass
+
     @abstractmethod
     def remove_book(self, title):
         pass
@@ -21,25 +32,27 @@ class LibraryInterface(ABC):
     def show_books(self):
         pass
 
+
 class Library(LibraryInterface):
     def __init__(self):
         self.books = []
 
-    def add_book(self, book:Book):
+    def add_book(self, book: Book):
         self.books.append(book)
 
     def remove_book(self, title):
         self.books = [book for book in self.books if book.title != title]
 
     def show_books(self):
-        if(len(self.books)==0):
-            print("You don't have any books!")
+        if len(self.books) == 0:
+            logging.info("You don't have any books!")
             return
         for book in self.books:
-            print(book)
+            logging.info(book)
+
 
 class LibraryManager:
-    def __init__(self,library):
+    def __init__(self, library):
         self.library = library
 
     def add_book(self, title, author, year):
@@ -74,7 +87,8 @@ def main():
             case "exit":
                 break
             case _:
-                print("Invalid command. Please try again.")
+                logging.error("Invalid command. Please try again.")
+
 
 if __name__ == "__main__":
     main()
