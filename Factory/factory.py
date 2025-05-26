@@ -25,23 +25,23 @@ class VehicleFactory(ABC):
 
 
 class USVehicleFactory(VehicleFactory):
-    def create_car(self):
+    def create_car(self) -> Vehicle:
         return Car("Ford", "Mustang (US Spec)")
 
-    def create_motorcycle(self):
+    def create_motorcycle(self) -> Vehicle:
         return Motorcycle("Harley-Davidson", "Sportster (US Spec)")
 
 
 class EUVehicleFactory(VehicleFactory):
-    def create_car(self):
+    def create_car(self) -> Vehicle:
         return Car("Volkswagen", "Golf (EU Spec)")
 
-    def create_motorcycle(self):
+    def create_motorcycle(self) -> Vehicle:
         return Motorcycle("BMW", "R1250 (EU Spec)")
 
 
 class Car(Vehicle):
-    def __init__(self, make, model):
+    def __init__(self, make: str, model: str):
         self.make = make
         self.model = model
 
@@ -50,7 +50,7 @@ class Car(Vehicle):
 
 
 class Motorcycle(Vehicle):
-    def __init__(self, make, model):
+    def __init__(self, make: str, model: str):
         self.make = make
         self.model = model
 
@@ -58,7 +58,7 @@ class Motorcycle(Vehicle):
         logging.info(f"{self.make} {self.model}: Мотор заведено")
 
 
-def client_code(factory):
+def client_code(factory: VehicleFactory):
     car = factory.create_car()
     motorcycle = factory.create_motorcycle()
 
