@@ -10,12 +10,12 @@ logging.basicConfig(
 
 
 class Book:
-    def __init__(self, title, author, year):
+    def __init__(self, title: str, author: str, year: str):
         self.title = title
         self.author = author
         self.year = year
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Title: {self.title}, Author: {self.author}, Year: {self.year}"
 
 
@@ -25,7 +25,7 @@ class LibraryInterface(ABC):
         pass
 
     @abstractmethod
-    def remove_book(self, title):
+    def remove_book(self, title: str):
         pass
 
     @abstractmethod
@@ -40,7 +40,7 @@ class Library(LibraryInterface):
     def add_book(self, book: Book):
         self.books.append(book)
 
-    def remove_book(self, title):
+    def remove_book(self, title: str):
         self.books = [book for book in self.books if book.title != title]
 
     def show_books(self):
@@ -52,14 +52,14 @@ class Library(LibraryInterface):
 
 
 class LibraryManager:
-    def __init__(self, library):
+    def __init__(self, library: LibraryInterface):
         self.library = library
 
-    def add_book(self, title, author, year):
+    def add_book(self, title: str, author: str, year: str):
         book = Book(title, author, year)
         self.library.add_book(book)
 
-    def remove_book(self, title):
+    def remove_book(self, title: str):
         self.library.remove_book(title)
 
     def show_books(self):
